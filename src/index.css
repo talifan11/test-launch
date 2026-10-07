@@ -1,0 +1,251 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Базовые токены продублированы как CSS-переменные для мест,
+   где удобнее обратиться к значению напрямую. */
+:root {
+  --abyss: #0a0e14;
+  --panel: #0f141c;
+  --steel: #1a2333;
+  --edge: rgba(255, 255, 255, 0.08);
+  --gold: #ffc24b;
+  --blizzard: #0e9cff;
+  --emerald: #2fbf71;
+  --blood: #ff5566;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background-color: var(--abyss);
+  color: #e6edf6;
+  font-family: Inter, system-ui, sans-serif;
+  overflow: hidden;
+  user-select: none;
+}
+
+/* Многослойный кинематографичный фон: тёплое зарево сверху,
+   холодное снизу, лёгкая виньетка по краям. */
+.vr-bg {
+  background:
+    radial-gradient(1100px 520px at 78% -10%, rgba(255, 194, 75, 0.07), transparent 60%),
+    radial-gradient(900px 600px at 12% 110%, rgba(14, 156, 255, 0.08), transparent 65%),
+    radial-gradient(700px 380px at 50% 40%, rgba(26, 35, 51, 0.55), transparent 70%),
+    linear-gradient(180deg, #0a0e14 0%, #0b1018 55%, #090d13 100%);
+}
+
+/* Стеклянная панель: полупрозрачность + размытие + внутренняя подсветка */
+.vr-glass {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--edge);
+}
+
+.vr-card {
+  background: linear-gradient(160deg, rgba(26, 35, 51, 0.85), rgba(15, 20, 28, 0.9));
+  border: 1px solid var(--edge);
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+.vr-card:hover {
+  box-shadow: 0 0 22px rgba(14, 156, 255, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  transform: translateY(-1px);
+}
+
+/* Кнопка окна в TitleBar */
+.vr-titlebar-btn {
+  width: 40px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  color: rgba(230, 237, 246, 0.75);
+  transition: all 0.2s ease;
+}
+
+.vr-titlebar-btn:hover {
+  background: rgba(255, 255, 255, 0.07);
+  color: #fff;
+}
+
+.vr-titlebar-btn-close:hover {
+  background: rgba(255, 85, 102, 0.18);
+  color: var(--blood);
+}
+
+/* Полоса прогресса установки/загрузки */
+.vr-progress-track {
+  position: relative;
+  height: 8px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--edge);
+  overflow: hidden;
+}
+
+.vr-progress-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--gold) 0%, #ffd97a 100%);
+  box-shadow: 0 0 14px rgba(255, 194, 75, 0.45);
+  transition: width 0.3s ease;
+}
+
+.vr-progress-fill-blue {
+  background: linear-gradient(90deg, var(--blizzard) 0%, #6cc6ff 100%);
+  box-shadow: 0 0 14px rgba(14, 156, 255, 0.4);
+}
+
+/* Pill-фильтры и чипы статусов */
+.vr-pill {
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--edge);
+  background: rgba(255, 255, 255, 0.03);
+  color: rgba(230, 237, 246, 0.7);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.vr-pill:hover {
+  color: #fff;
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.06);
+}
+
+.vr-pill-active {
+  border-color: rgba(255, 194, 75, 0.5);
+  background: rgba(255, 194, 75, 0.1);
+  color: var(--gold);
+}
+
+/* Табы TopNav */
+.vr-tab {
+  position: relative;
+  padding: 0 18px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: rgba(230, 237, 246, 0.55);
+  transition: color 0.2s ease;
+  cursor: pointer;
+}
+
+.vr-tab:hover {
+  color: #fff;
+}
+
+.vr-tab-active {
+  color: var(--gold);
+}
+
+.vr-tab-active::after {
+  content: '';
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  bottom: 0;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--gold);
+  box-shadow: 0 0 10px rgba(255, 194, 75, 0.6);
+}
+
+/* Поля ввода */
+.vr-input {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--edge);
+  background: rgba(10, 14, 20, 0.6);
+  color: #e6edf6;
+  font-size: 14px;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.vr-input:focus {
+  border-color: rgba(14, 156, 255, 0.55);
+  box-shadow: 0 0 0 3px rgba(14, 156, 255, 0.12);
+}
+
+.vr-input::placeholder {
+  color: rgba(230, 237, 246, 0.3);
+}
+
+/* Индикатор статуса сервера */
+.vr-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  display: inline-block;
+}
+
+.vr-dot-online {
+  background: var(--emerald);
+  box-shadow: 0 0 10px rgba(47, 191, 113, 0.8);
+}
+
+.vr-dot-active {
+  background: var(--blizzard);
+  box-shadow: 0 0 10px rgba(14, 156, 255, 0.8);
+}
+
+.vr-dot-offline {
+  background: var(--blood);
+  box-shadow: 0 0 10px rgba(255, 85, 102, 0.7);
+}
+
+.vr-dot-checking {
+  background: rgba(230, 237, 246, 0.4);
+  animation: vr-pulse 1.2s ease-in-out infinite;
+}
+
+@keyframes vr-pulse {
+  0%, 100% { opacity: 0.35; }
+  50% { opacity: 1; }
+}
+
+/* Тонкий скроллбар контента */
+.vr-scroll::-webkit-scrollbar {
+  width: 8px;
+}
+
+.vr-scroll::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+}
+
+.vr-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.vr-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Заголовки в дисплейном шрифте */
+.vr-display {
+  font-family: Cinzel, serif;
+  letter-spacing: 0.06em;
+}
+
+.vr-mono {
+  font-family: 'JetBrains Mono', monospace;
+}

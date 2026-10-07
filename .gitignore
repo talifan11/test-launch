@@ -1,8 +1,5 @@
-node_modules/
+(empty)node_modules/
+.next/
 dist/
 build/
 *.log
-src-tauri/target/
-src-tauri/gen/
-.DS_Store
-*.local
